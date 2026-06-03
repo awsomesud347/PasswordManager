@@ -76,6 +76,3 @@ async def account_delete(email: str = Depends(verify_jwt), db: AsyncSession = De
     return {
         "status" : "ok"
     }
-
-
-    # figure out what to write in main.py and if the central router has been initialized yet or not?

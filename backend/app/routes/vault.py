@@ -22,3 +22,25 @@ async def get_vault(email: str = Depends(verify_jwt), db: AsyncSession = Depends
     "iv": user.iv,
     "version": user.vault_version
     }
+
+@router.put("/", response_model=VaultResponse)
+async def vault_update(req: VaultUpdateRequest, email: str = Depends(verify_jwt), db: AsyncSession = Depends(get_db)):
+    result = await db.execute(select(User).where(User.email == email))
+    user = result.scalar_one_or_none()
+
+    if user is None:
+        raise HTTPException(status_code=404, detail="User not found")
+
+    if user.vault_version != req.version:
+        raise HTTPException(status_code=409, detail="Server Version Conflict")
+
+    user.vault_blob = req.vault_blob
+    user.iv = req.iv
+    user.vault_version += 1
+    await db.commit()
+
+    return {
+        "vault_blob": user.vault_blob,
+        "iv": user.iv,
+        "version": user.vault_version
+    }

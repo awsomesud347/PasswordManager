@@ -67,10 +67,8 @@ async def get_salt(request: Request, email: str, db: AsyncSession = Depends(get_
 @router.post("/login", response_model=LoginResponse)
 @limiter.limit("10/minute")
 async def login(request: Request, req: LoginRequest, db: AsyncSession = Depends(get_db)):
-    print(f"LOGIN auth_key: {req.auth_key[:20]}...")
     result = await db.execute(select(User).where(User.email == req.email))
     user = result.scalar_one_or_none()
-    print(f"USER found: {user is not None}")
 
     if not user or not await verify_auth_key(user.verifier, req.auth_key):
         raise HTTPException(status_code=401, detail="Invalid credentials")

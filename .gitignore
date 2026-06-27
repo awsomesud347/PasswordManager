@@ -184,6 +184,7 @@ backend/.env
 
 # terraformn gitignores
 terraform/terraform.tfvars
+terraform/monitoring/terraform.tfvars
 terraform/.terraform/
 terraform/terraform.tfstate
 terraform/terraform.tfstate.backup

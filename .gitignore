@@ -191,4 +191,9 @@ terraform/terraform.tfstate.backup
 terraform/monitoring/.terraform/
 terraform/monitoring/terraform.tfstate
 terraform/monitoring/terraform.tfstate.backup
+terraform/loadgen/terraform.tfvars
+terraform/loadgen/terraform.tfvars
+terraform/loadgen/.terraform/
+terraform/loadgen/terraform.tfstate
+terraform/loadgen/terraform.tfstate.backup
 nginx/certs/

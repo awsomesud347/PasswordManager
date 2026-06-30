@@ -28,7 +28,6 @@ export default function Register({ onSwitchToLogin }) {
         try {
             // get salt from server
             const initResponse = await api.registerInit(email)
-            console.log("registerInit response:", initResponse)
             const { salt } = initResponse
 
             // derive enc_key and auth_key from master password + salt

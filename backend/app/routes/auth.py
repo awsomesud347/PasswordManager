@@ -36,7 +36,6 @@ async def register_init(request: Request, req: RegisterInitRequest, db: AsyncSes
 @router.post("/register/complete")
 @limiter.limit("100/minute")
 async def register_complete(request: Request, req: RegisterCompleteRequest, db: AsyncSession = Depends(get_db)):
-    print(f"REGISTER auth_key: {req.auth_key[:20]}...")
     result = await db.execute(select(User).where(User.email == req.email))
     if result.scalar_one_or_none():
         raise HTTPException(status_code=409, detail="Email already registered")
